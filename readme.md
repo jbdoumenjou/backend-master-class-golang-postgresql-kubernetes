@@ -1,6 +1,23 @@
 This repository contains all notes and experimentation
 following the Udemy course [Backend Master Class [Golang + Postgres + Kubernetes + gRPC]](https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes/)
 
+# Usage
+
+Use the Makefile to launch and use the database.
+```shell
+$make help
+help:                 Show this help.
+pull-images:          Pull the needed docker images.
+create-db:            Create the database.
+drop-db:              Drop the database.
+migrate-up:           Apply all up migrations.
+migrate-down:         Apply all down migrations.
+start-postgres:       Start postgresql database docker image.
+stop-postgres:        Stop postgresql database docker image.
+run-postgres-cli:     Run psql on the postgre15 docker container.
+docker-system-clean:  Docker system clean.
+```
+
 # DataBase
 
 * Use https://dbdiagram.io/ to create a schema, then export it in SQL
@@ -11,6 +28,15 @@ following the Udemy course [Backend Master Class [Golang + Postgres + Kubernetes
 * A docker command line has been configured in the Makefile.
   Following this configuration,
   the attributes to use in the DB client are: `basename: root`, `user: root`, `password: secret`, `url: localhost:5432`
+
+## ORM or Not ?
+
+There are several choices to interact with the database from the code:
+* using database/sql package and writing SQL requests by hand.
+* using an orm like [gorm](https://github.com/go-gorm/gorm).
+* slqx an in-between, providing some function but is not an ORM
+* [sqlc](https://github.com/sqlc-dev/sqlc) another in-between but well suited for postgresql.
+
 
 ## Migration 
 
@@ -41,6 +67,7 @@ migrate create -ext sql -dir db/migration -seq init_schema
 * https://github.com/techschool/simplebank
 * https://go.dev/tour/
 * https://hub.docker.com/_/postgres
+* https://sqlc.dev/
 * https://tableplus.com (not supported on Linux anymore)
 
 # Notes

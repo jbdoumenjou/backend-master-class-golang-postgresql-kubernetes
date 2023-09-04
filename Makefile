@@ -1,29 +1,35 @@
-.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean
+.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc
 
-pull-images:
+help: ## Show this help.
+	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST) | column -tl 2
+
+pull-images: ## Pull the needed docker images.
 	docker pull postgres:15-alpine
 
-create-db:
+create-db: ## Create the database.
 	docker exec -it postgres15  createdb --username=root --owner=root simple_bank
 
-drop-db:
+drop-db: ## Drop the database.
 	docker exec -it postgres15  dropdb simple_bank
 
-migrate-up:
+migrate-up: ## Apply all up migrations.
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
-migrate-down:
+migrate-down: ## Apply all down migrations.
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 
 # https://hub.docker.com/_/postgres
-start-postgres:
+start-postgres: ## Start postgresql database docker image.
 	docker run --name postgres15 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:15-alpine
 
-stop-postgres:
+stop-postgres: ## Stop postgresql database docker image.
 	docker stop postgres15
 
-run-postgres-cli:
+run-postgres-cli:    ## Run psql on the postgre15 docker container.
 	docker exec -it -u root postgres15 psql
 
-docker-system-clean:
+sqlc: ## sqlc generate.
+	sqlc generate
+
+docker-system-clean: ## Docker system clean.
 	docker system prune -f
