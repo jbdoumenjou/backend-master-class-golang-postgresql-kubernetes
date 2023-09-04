@@ -15,11 +15,12 @@ following the Udemy course [Backend Master Class [Golang + Postgres + Kubernetes
 # References
 
 * https://dbdiagram.io/
+* https://dbeaver.io/
 * https://github.com/holistics/dbml/
 * https://github.com/techschool/simplebank
 * https://go.dev/tour/
+* https://hub.docker.com/_/postgres
 * https://tableplus.com (not supported on Linux anymore)
-* https://dbeaver.io/
 
 # Notes
 
