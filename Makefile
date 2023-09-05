@@ -1,4 +1,4 @@
-.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc
+.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test
 
 help: ## Show this help.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST) | column -tl 2
@@ -33,3 +33,6 @@ sqlc: ## sqlc generate.
 
 docker-system-clean: ## Docker system clean.
 	docker system prune -f
+
+test: ## Test go files and report coverage.
+	go test -v -cover ./...

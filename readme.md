@@ -37,6 +37,14 @@ There are several choices to interact with the database from the code:
 * slqx an in-between, providing some function but is not an ORM
 * [sqlc](https://github.com/sqlc-dev/sqlc) another in-between but well suited for postgresql.
 
+In this course, we will use sqlc.
+
+## Driver
+
+* https://github.com/lib/pq
+```shell
+go get github.com/lib/pq
+```
 
 ## Migration 
 
