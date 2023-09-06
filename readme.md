@@ -70,6 +70,7 @@ migrate create -ext sql -dir db/migration -seq init_schema
 
 * https://dbdiagram.io/
 * https://dbeaver.io/
+* https://en.wikipedia.org/wiki/ACID
 * https://github.com/golang-migrate/migrate
 * https://github.com/holistics/dbml/
 * https://github.com/techschool/simplebank
