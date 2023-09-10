@@ -66,7 +66,7 @@ Initialize schema migration management:
 migrate create -ext sql -dir db/migration -seq init_schema
 ```
 
-# Manage DB locks
+## Manage DB locks
 
 Add log/data inside code to identify the queries order, then you can replay this sequence in another client.
 Then, you can use specific [psql query](https://wiki.postgresql.org/wiki/Lock_Monitoring) to find the deadlock and some data about it.
@@ -113,16 +113,47 @@ JOIN pg_locks l ON l.pid = a.pid
 ORDER BY a.pid;
 ```
 
+## Isolation Level
+
+>In database systems, isolation determines how transaction integrity is visible to other users and systems.
+>
+>A lower isolation level increases the ability of many users to access the same data at the same time,
+but increases the number of concurrency effects (such as dirty reads or lost updates) users might encounter.
+Conversely, a higher isolation level reduces the types of concurrency effects that users may encounter,
+but requires more system resources and increases the chances that one transaction will block another.
+>
+>Isolation is typically defined at database level as a property that defines how or when the changes made by one operation become visible to others.
+On older systems, it may be implemented systemically, for example through the use of temporary tables.
+In two-tier systems, a transaction processing (TP) manager is required to maintain isolation.
+In n-tier systems (such as multiple websites attempting to book the last seat on a flight),
+a combination of stored procedures and transaction management is required to commit the booking and send confirmation to the customer.
+Isolation is one of the four ACID properties, along with atomicity, consistency and durability.
+
+https://en.wikipedia.org/wiki/Isolation_(database_systems)
+
+
+| Read phenomenon </br>____________</br>Isolation level | Dirty read | Non-repeatable read | 	Phantom read |
+|-------------------------------------------------------|------------|---------------------|---------------|
+| Serializable 	                                        | no         | 	no                 | 	no           |
+| Repeatable read                                       | 	no        | 	no                 | 	yes          |
+| Read committed                                        | 	no        | 	yes                | 	yes          |
+| Read uncommitted                                      | 	yes       | 	yes                | 	yes          |
+
+https://www.postgresql.org/docs/15/transaction-iso.html
+
+
 # References
 
 * https://dbdiagram.io/
 * https://dbeaver.io/
 * https://en.wikipedia.org/wiki/ACID
+* https://en.wikipedia.org/wiki/American_National_Standards_Institute
 * https://github.com/golang-migrate/migrate
 * https://github.com/holistics/dbml/
 * https://github.com/techschool/simplebank
 * https://go.dev/tour/
 * https://hub.docker.com/_/postgres
+* https://www.postgresql.org/docs/15/transaction-iso.html
 * https://sqlc.dev/
 * https://tableplus.com (not supported on Linux anymore)
 * https://wiki.postgresql.org/wiki/Lock_Monitoring
