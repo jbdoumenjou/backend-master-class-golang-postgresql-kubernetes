@@ -17,7 +17,10 @@ migrate-down:         Apply all down migrations.
 start-postgres:       Start postgresql database docker image.
 stop-postgres:        Stop postgresql database docker image.
 run-postgres-cli:     Run psql on the postgre15 docker container.
+sqlc:                 sqlc generate.
 docker-system-clean:  Docker system clean.
+test:                 Test go files and report coverage.
+server:               Run the application server.
 ```
 
 # DataBase
