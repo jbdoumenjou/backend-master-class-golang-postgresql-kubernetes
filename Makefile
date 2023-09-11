@@ -36,3 +36,6 @@ docker-system-clean: ## Docker system clean.
 
 test: ## Test go files and report coverage.
 	go test -v -cover ./...
+
+server: ## Run the application server.
+	go run main.go

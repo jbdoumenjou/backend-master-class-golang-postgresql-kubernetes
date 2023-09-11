@@ -177,7 +177,3 @@ Available Java environments:
   java-8-OpenJDK/jre
 ```
 
-
-
-
-
