@@ -14,6 +14,22 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+    # Service containers to run with `container-job`
+    services:
+      postgres:
+        image: postgres:15
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: secret
+          POSTGRES_DB: simple_bank
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
 
@@ -21,6 +37,9 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.21'
+
+      - name: Run Migrations
+        run: make migrate-up
 
       - name: Test
         run: make test
