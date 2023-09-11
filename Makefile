@@ -25,7 +25,7 @@ start-postgres: ## Start postgresql database docker image.
 stop-postgres: ## Stop postgresql database docker image.
 	docker stop postgres15
 
-run-postgres-cli:    ## Run psql on the postgre15 docker container.
+run-postgres-cli:    ## Run psql on the postgres15 docker container.
 	docker exec -it -u root postgres15 psql
 
 sqlc: ## sqlc generate.
