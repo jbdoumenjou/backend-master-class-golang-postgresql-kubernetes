@@ -156,6 +156,7 @@ https://www.postgresql.org/docs/15/transaction-iso.html
 * https://github.com/golang-migrate/migrate
 * https://github.com/holistics/dbml/
 * https://github.com/techschool/simplebank
+* https://github.com/uber-go/mock
 * https://go.dev/tour/
 * https://hub.docker.com/_/postgres
 * https://www.postgresql.org/docs/15/transaction-iso.html
