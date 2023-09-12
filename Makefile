@@ -38,7 +38,7 @@ test: ## Test go files and report coverage.
 server: ## Run the application server.
 	go run main.go
 
-mock:
+mock: ## Generate a store mock.
 	mockgen -package mockdb -destination db/mock/store.go github.com/jbdoumenjou/simplebank/db/sqlc Store
 
 .PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test mock

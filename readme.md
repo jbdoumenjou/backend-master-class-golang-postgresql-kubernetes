@@ -21,6 +21,7 @@ sqlc:                 sqlc generate.
 docker-system-clean:  Docker system clean.
 test:                 Test go files and report coverage.
 server:               Run the application server.
+mock:                 Generate a store mock.
 ```
 
 # DataBase
