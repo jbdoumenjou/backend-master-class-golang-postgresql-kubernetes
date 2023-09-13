@@ -13,8 +13,14 @@ drop-db: ## Drop the database.
 migrate-up: ## Apply all up migrations.
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 
+migrate-up-1: ## Apply the last up migration.
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+
 migrate-down: ## Apply all down migrations.
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
+
+migrate-down-1: ## Apply the last down migration.
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 
 # https://hub.docker.com/_/postgres
 start-postgres: ## Start postgresql database docker image.
@@ -41,4 +47,4 @@ server: ## Run the application server.
 mock: ## Generate a store mock.
 	mockgen -package mockdb -destination db/mock/store.go github.com/jbdoumenjou/simplebank/db/sqlc Store
 
-.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test mock
+.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test mock migrate-up-1 migrate-down-1

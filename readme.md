@@ -13,10 +13,12 @@ pull-images:          Pull the needed docker images.
 create-db:            Create the database.
 drop-db:              Drop the database.
 migrate-up:           Apply all up migrations.
+migrate-up-1:         Apply the last up migration.
 migrate-down:         Apply all down migrations.
+migrate-down-1:       Apply the last down migration.
 start-postgres:       Start postgresql database docker image.
 stop-postgres:        Stop postgresql database docker image.
-run-postgres-cli:     Run psql on the postgre15 docker container.
+run-postgres-cli:     Run psql on the postgres15 docker container.
 sqlc:                 sqlc generate.
 docker-system-clean:  Docker system clean.
 test:                 Test go files and report coverage.
@@ -70,6 +72,12 @@ Create a folder db/migration to store migration.
 Initialize schema migration management:
 ```shell
 migrate create -ext sql -dir db/migration -seq init_schema
+```
+
+Add users:
+
+```shell
+migrate create -ext sql -dir db/migration -seq add_users
 ```
 
 ## Manage DB locks
