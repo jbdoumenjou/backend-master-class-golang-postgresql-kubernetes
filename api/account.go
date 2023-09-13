@@ -3,10 +3,11 @@ package api
 import (
 	"database/sql"
 	"errors"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	db "github.com/jbdoumenjou/simplebank/db/sqlc"
 	"github.com/lib/pq"
-	"net/http"
 )
 
 type createAccountRequest struct {
@@ -92,10 +93,6 @@ func (server *Server) listAccount(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, accounts)
-}
-
-type deleteAccountRequest struct {
-	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
 func (server *Server) deleteAccount(ctx *gin.Context) {
