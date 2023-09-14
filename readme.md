@@ -155,6 +155,22 @@ https://en.wikipedia.org/wiki/Isolation_(database_systems)
 
 https://www.postgresql.org/docs/15/transaction-iso.html
 
+# JWT
+
+Server must check if the algorithm header matches the one it is using to sign tokens.
+Check all known vulnerabilities.
+To avoid possible vulnerabilities with JWT, the course proposes to use PASETO.
+
+# Platform-Agnostic SEcurity TOkens [PASETO]
+
+https://paseto.io/
+
+Stronger algorithms
+
+https://github.com/golang-jwt/jwt
+
+
+
 
 # References
 
@@ -162,8 +178,11 @@ https://www.postgresql.org/docs/15/transaction-iso.html
 * https://dbeaver.io/
 * https://en.wikipedia.org/wiki/ACID
 * https://en.wikipedia.org/wiki/American_National_Standards_Institute
+* https://github.com/golang-jwt/jwt
 * https://github.com/golang-migrate/migrate
 * https://github.com/holistics/dbml/
+* https://github.com/jackc/pgx
+* https://github.com/lib/pq
 * https://github.com/techschool/simplebank
 * https://github.com/uber-go/mock
 * https://go.dev/tour/
