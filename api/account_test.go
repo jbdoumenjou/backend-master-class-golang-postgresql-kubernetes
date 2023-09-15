@@ -5,16 +5,16 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/stretchr/testify/require"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
+	"github.com/gin-gonic/gin"
 	mockdb "github.com/jbdoumenjou/simplebank/db/mock"
 	db "github.com/jbdoumenjou/simplebank/db/sqlc"
 	"github.com/jbdoumenjou/simplebank/util"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
 )
 
@@ -87,7 +87,7 @@ func TestGetAccountAPI(t *testing.T) {
 			// build stubs
 			tc.buildStubs(store)
 			// start test server and send request
-			server := NewServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/accounts/%d", tc.accountID)
@@ -170,7 +170,7 @@ func TestCreateAccountAPI(t *testing.T) {
 			// build stubs
 			tc.buildStubs(store)
 			// start test server and send request
-			server := NewServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			data, err := json.Marshal(tc.body)
@@ -264,7 +264,7 @@ func TestListAccountAPI(t *testing.T) {
 			// build stubs
 			tc.buildStubs(store)
 			// start test server and send request
-			server := NewServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/accounts?page_size=%d&page_id=%d", tc.query.pageSize, tc.query.pageID)
@@ -345,7 +345,7 @@ func TestDeleteAccountAPI(t *testing.T) {
 			// build stubs
 			tc.buildStubs(store)
 			// start test server and send request
-			server := NewServer(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			url := fmt.Sprintf("/accounts/%d", tc.accountID)

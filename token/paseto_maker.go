@@ -34,7 +34,7 @@ func (p PasetoMaker) VerifyToken(token string) (*Payload, error) {
 	if err != nil {
 		return nil, err
 	}
-	p.paseto.Verify()
+
 	return payload, nil
 }
 
