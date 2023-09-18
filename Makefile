@@ -5,7 +5,7 @@ pull-images: ## Pull the needed docker images.
 	docker pull postgres:15-alpine
 
 create-db: ## Create the database.
-	docker exec -it postgres15  createdb --username=root --owner=root simple_bank
+	docker exec -it postgres15 --network bank-network  createdb --username=root --owner=root simple_bank
 
 drop-db: ## Drop the database.
 	docker exec -it postgres15  dropdb simple_bank
@@ -46,5 +46,8 @@ server: ## Run the application server.
 
 mock: ## Generate a store mock.
 	mockgen -package mockdb -destination db/mock/store.go github.com/jbdoumenjou/simplebank/db/sqlc Store
+
+build-docker-image: ## Build the Docker image.
+	docker build -t simplebank:latest .
 
 .PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test mock migrate-up-1 migrate-down-1

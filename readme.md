@@ -170,7 +170,66 @@ Stronger algorithms
 https://github.com/golang-jwt/jwt
 
 
+# Docker
 
+Check the network and find why we can't access to the database.
+-> There aren't on the same network, we need to find another way to access the database.
+```shell
+docker container inspect simplebank
+```
+
+Check the networks
+```shell
+$docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+29c75cdf92f3   bridge    bridge    local
+70e8d2d984b4   host      host      local
+d71f8961e332   none      null      local
+```
+Check the containers that user the bridge network
+```shell
+$docker network inspect bridge | jq '[ .[].Containers ]'
+[
+  {
+    "2afbe995aee9d62d5e0c0cf4b6e62037ea10c62ee39a52653eb26f0a9e7cc620": {
+      "Name": "postgres15",
+      "EndpointID": "a294538e900fd5fa367d5bc26879cf76af3be2361881ed916bbddcbcc9ec23df",
+      "MacAddress": "02:42:ac:11:00:03",
+      "IPv4Address": "172.17.0.3/16",
+      "IPv6Address": ""
+    }
+  }
+]
+```
+So we have to crete a common network, let's call it "bank-network".
+```shell
+docker network create bank-network
+```
+Then connect the postgres container to this new network
+```shell
+docker network connect bank-network postgres15
+```
+Checks that the postgres container is in the bank-network network
+```shell
+docker network inspect bank-network | jq "[ .[].Containers ]"                                                               ✔ 
+[
+  {
+    "2afbe995aee9d62d5e0c0cf4b6e62037ea10c62ee39a52653eb26f0a9e7cc620": {
+      "Name": "postgres15",
+      "EndpointID": "e2c8e184a89851edd91963250c2f2c274d307d77b083e5ef2915f30273d5d95c",
+      "MacAddress": "02:42:ac:12:00:02",
+      "IPv4Address": "172.18.0.2/16",
+      "IPv6Address": ""
+    }
+  }
+]
+```
+
+Now check the networks of postgres15 container
+```shell
+docker container inspect postgres15 | jq -r '[ .[].NetworkSettings.Networks]'
+```
+We can see both `bridge` and `bank-network` networks. 
 
 # References
 
