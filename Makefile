@@ -4,8 +4,11 @@ help: ## Show this help.
 pull-images: ## Pull the needed docker images.
 	docker pull postgres:15-alpine
 
+create-network: ## Create the bank-network.
+	docker network create bank-network
+
 create-db: ## Create the database.
-	docker exec -it postgres15 --network bank-network  createdb --username=root --owner=root simple_bank
+	docker exec -it postgres15 createdb --username=root --owner=root simple_bank
 
 drop-db: ## Drop the database.
 	docker exec -it postgres15  dropdb simple_bank
