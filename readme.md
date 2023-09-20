@@ -231,10 +231,42 @@ docker container inspect postgres15 | jq -r '[ .[].NetworkSettings.Networks]'
 ```
 We can see both `bridge` and `bank-network` networks. 
 
+## Docker Compose
+
+https://docs.docker.com/compose/compose-file/compose-file-v3/
+> The Compose Specification lets you define a platform-agnostic container based application.
+> Such an application is designed as a set of containers
+> which have to both run together with adequate shared resources and communication channels.
+
+To apply the migration, we have to wait the the dadabase to be started.
+`depends_on` is not enough because it wait for container to be started, not the app inside.
+To do that, we need to control startup and shutdown
+https://docs.docker.com/compose/startup-order/
+
+We can use a specific condition on a `depends_on` configuration.
+Here we can wait for a `service_healthy` of the postgres container 
+```yaml
+  postgres:
+    # ...
+    healthcheck:
+      test: pg_isready -U root -d simple_bank
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  api:
+    # ...
+    depends_on:
+      postgres:
+        condition: service_healthy
+```
+
+
 # References
 
 * https://dbdiagram.io/
 * https://dbeaver.io/
+* https://docs.docker.com/compose/compose-file/compose-file-v3/
+* https://docs.docker.com/compose/startup-order/
 * https://en.wikipedia.org/wiki/ACID
 * https://en.wikipedia.org/wiki/American_National_Standards_Institute
 * https://github.com/golang-jwt/jwt
