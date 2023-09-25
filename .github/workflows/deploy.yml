@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
       # https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
