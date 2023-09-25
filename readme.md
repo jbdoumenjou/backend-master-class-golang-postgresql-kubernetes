@@ -260,11 +260,45 @@ Here we can wait for a `service_healthy` of the postgres container
         condition: service_healthy
 ```
 
+# AWS
+
+Provide a free tier: https://aws.amazon.com/free
+
+Create a repository in AWS ECR.
+Let the default option and name the repository `simplebank` in this case.
+[use private registry](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth)
+[private registry authentication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry_auth.html)
+
+Search how to [configure aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html)
+
+Let's try the [SSO Token](https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html) way.  
+Following [these steps](https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html#sso-configure-profile-token-auto-sso)  
+The fist step is another redirection, create some resources following [this doc](https://docs.aws.amazon.com/singlesignon/latest/userguide/getting-started.html)
+
+The last version of this GH action use an arn to associate a specific role and so specific rights.
+I follow https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
+
+
+```shell
+aws iam create-open-id-connect-provider ‐‐url "https://token.actions.githubusercontent.com" ‐‐thumbprint-list "6938fd4d98bab03faadb97b34396831e3780aea1" ‐‐client-id-list 'sts.amazonaws.com'
+```
+
+I had several configuration issues with this type of configuration.
+That's why I start with the previous `configure-aws-credentials@v1` configuration.
+
+# Github
+
+https://github.com/marketplace to find GH actions.  
+[aws ecr gh actions](https://github.com/marketplace?type=actions&query=aws+ecr+)
+Choose [Amazon ECT "Login" Action for Github Actions](https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions).  
+
 
 # References
 
+* https://aws.amazon.com/free
 * https://dbdiagram.io/
 * https://dbeaver.io/
+* https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth
 * https://docs.docker.com/compose/compose-file/compose-file-v3/
 * https://docs.docker.com/compose/startup-order/
 * https://en.wikipedia.org/wiki/ACID
@@ -274,6 +308,7 @@ Here we can wait for a `service_healthy` of the postgres container
 * https://github.com/holistics/dbml/
 * https://github.com/jackc/pgx
 * https://github.com/lib/pq
+* https://github.com/marketplace
 * https://github.com/techschool/simplebank
 * https://github.com/uber-go/mock
 * https://go.dev/tour/
