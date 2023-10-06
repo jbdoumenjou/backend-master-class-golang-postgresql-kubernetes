@@ -337,3 +337,8 @@ Available Java environments:
   java-8-OpenJDK/jre
 ```
 
+To generate a stronger TOKEN_SYMMETRIC_KEY:
+
+```shell
+openssl rand -hex 64 | head -c 32
+```
