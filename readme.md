@@ -286,6 +286,12 @@ aws iam create-open-id-connect-provider ‐‐url "https://token.actions.githubu
 I had several configuration issues with this type of configuration.
 That's why I start with the previous `configure-aws-credentials@v1` configuration.
 
+Connect to the registry:
+```shell
+# get the token and use it to login with the registry URL.
+aws ecr get-login-password | docker login --username AWS --password-stdin xxx.dkr.ecr.eu-west-3.amazonaws.com
+```
+
 # Github
 
 https://github.com/marketplace to find GH actions.  
