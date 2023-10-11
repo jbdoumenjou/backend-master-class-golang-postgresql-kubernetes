@@ -298,6 +298,50 @@ https://github.com/marketplace to find GH actions.
 [aws ecr gh actions](https://github.com/marketplace?type=actions&query=aws+ecr+)
 Choose [Amazon ECT "Login" Action for Github Actions](https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions).  
 
+# Kubernetes
+
+* https://kubernetes.io/docs/reference/kubectl/
+
+use aws eks cluster locally:
+
+```shell
+aws eks update-kubeconfig --name simple-bank --region eu-west-3
+```
+
+select the context to use:
+```shell
+kubectl config get-contexts
+kubectl config use-context arn:aws:eks:eu-west-3:xxxxxxxxxxxx:cluster/simple-bank
+``` 
+
+```shell
+kubectl cluster-info                                                                                                  ✔  simple-bank ⎈ 
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+error: You must be logged in to the server (the server has asked for the client to provide credentials)
+```
+
+The user used for the local cli is not the user that created the eks cluster.
+cf https://repost.aws/knowledge-center/amazon-eks-cluster-access
+
+First get the user entity
+
+```shell
+aws sts get-caller-identity | jq                                                                                      ✔  13s  
+{
+  "UserId": "XXXXXX",
+  "Account": "XXXXXX",
+  "Arn": "arn:aws:iam::XXXXXX:user/jbd-cli"
+}
+```
+Update the  ~/.aws/credentials with credentials of the user that creates the cluster.
+
+Tool to manage kubernetes cluster: https://k9scli.io/
+
+Install an ingress controller:
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml
+```
 
 # References
 
