@@ -348,6 +348,10 @@ Install cert-manager
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
 ```
 
+One way to check the last stable version of kubernetes:  
+http://storage.googleapis.com/kubernetes-release/release/stable.txt
+
+
 # References
 
 * https://aws.amazon.com/free
@@ -365,12 +369,14 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 * https://github.com/jackc/pgx
 * https://github.com/lib/pq
 * https://github.com/marketplace
+* https://github.com/marketplace/actions/kubectl-tool-installer
 * https://github.com/techschool/simplebank
 * https://github.com/uber-go/mock
 * https://go.dev/tour/
 * https://hub.docker.com/_/postgres
 * https://www.postgresql.org/docs/15/transaction-iso.html
 * https://sqlc.dev/
+* http://storage.googleapis.com/kubernetes-release/release/stable.txt
 * https://tableplus.com (not supported on Linux anymore)
 * https://wiki.postgresql.org/wiki/Lock_Monitoring
 
