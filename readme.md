@@ -343,9 +343,15 @@ Install an ingress controller:
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/aws/deploy.yaml
 ```
 
+Install cert-manager
+```shell
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
+```
+
 # References
 
 * https://aws.amazon.com/free
+* https://cert-manager.io/
 * https://dbdiagram.io/
 * https://dbeaver.io/
 * https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth
