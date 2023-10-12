@@ -155,6 +155,34 @@ https://en.wikipedia.org/wiki/Isolation_(database_systems)
 
 https://www.postgresql.org/docs/15/transaction-iso.html
 
+## Documentation
+
+Install dbdocs CLI
+```shell  
+yarn global add dbdocs
+```
+
+Login to dbdocs
+```shell
+dbdocs login
+```
+
+Generate online documentation
+```shell
+dbdocs build doc/db.dbml
+```
+
+Add a password to the documentation
+```shell
+dbdocs password --set <password>  --project simple_bank
+```
+
+Install dbml CLI
+```shell
+yarn global add @dbml/cli
+```
+
+
 # JWT
 
 Server must check if the algorithm header matches the one it is using to sign tokens.
@@ -357,6 +385,7 @@ http://storage.googleapis.com/kubernetes-release/release/stable.txt
 * https://aws.amazon.com/free
 * https://cert-manager.io/
 * https://dbdiagram.io/
+* https://dbdocs.io
 * https://dbeaver.io/
 * https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth
 * https://docs.docker.com/compose/compose-file/compose-file-v3/

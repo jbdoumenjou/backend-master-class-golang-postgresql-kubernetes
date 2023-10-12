@@ -1,3 +1,5 @@
+DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
+
 help: ## Show this help.
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST) | column -tl 2
 
@@ -14,16 +16,16 @@ drop-db: ## Drop the database.
 	docker exec -it postgres15  dropdb simple_bank
 
 migrate-up: ## Apply all up migrations.
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration -database "$(DB_URL)" -verbose up
 
 migrate-up-1: ## Apply the last up migration.
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migration -database "$(DB_URL)" -verbose up 1
 
 migrate-down: ## Apply all down migrations.
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration -database "$(DB_URL)" -verbose down
 
 migrate-down-1: ## Apply the last down migration.
-	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
 
 # https://hub.docker.com/_/postgres
 start-postgres: ## Start postgresql database docker image.
@@ -34,6 +36,12 @@ stop-postgres: ## Stop postgresql database docker image.
 
 run-postgres-cli:    ## Run psql on the postgres15 docker container.
 	docker exec -it -u root postgres15 psql
+
+db-docs: ## Generate the database documentation.
+	dbdocs build doc/db.dbml
+
+db-schema: ## Generate the database schema.
+	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
 sqlc: ## sqlc generate.
 	sqlc generate
@@ -53,4 +61,5 @@ mock: ## Generate a store mock.
 build-docker-image: ## Build the Docker image.
 	docker build -t simplebank:latest .
 
-.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli docker-system-clean sqlc test mock migrate-up-1 migrate-down-1
+.PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli \
+ docker-system-clean sqlc test mock migrate-up-1 migrate-down-1 db-docs db-schema
