@@ -58,8 +58,15 @@ server: ## Run the application server.
 mock: ## Generate a store mock.
 	mockgen -package mockdb -destination db/mock/store.go github.com/jbdoumenjou/simplebank/db/sqlc Store
 
+proto: ## Generate the protobuf files.
+	rm -rf pb/*.go
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	proto/*.proto
+
+
 build-docker-image: ## Build the Docker image.
 	docker build -t simplebank:latest .
 
 .PHONY: start-postgres stop-postgres create-db drop-db migrate-up migrate-down run-postgres-cli \
- docker-system-clean sqlc test mock migrate-up-1 migrate-down-1 db-docs db-schema
+ docker-system-clean sqlc test mock migrate-up-1 migrate-down-1 db-docs db-schema proto

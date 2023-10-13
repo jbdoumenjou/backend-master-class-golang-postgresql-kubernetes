@@ -402,8 +402,11 @@ http://storage.googleapis.com/kubernetes-release/release/stable.txt
 * https://github.com/techschool/simplebank
 * https://github.com/uber-go/mock
 * https://go.dev/tour/
+* https://grpc.io/
+* https://grpc.io/docs/languages/go/quickstart/
 * https://hub.docker.com/_/postgres
 * https://www.postgresql.org/docs/15/transaction-iso.html
+* https://protobuf.dev/programming-guides/proto3/
 * https://sqlc.dev/
 * http://storage.googleapis.com/kubernetes-release/release/stable.txt
 * https://tableplus.com (not supported on Linux anymore)
